@@ -12,14 +12,22 @@
 var isValid = function(s) {
   const stack = [];
 
+  const mapping = {
+    '(': ')',
+    '{': '}',
+    '[': ']'
+  };
+
   for (let i = 0; i < s.length; i++) {
-    if (s[i] === '(') {
-      stack.push(')');
-    } else if (s[i] === '{') {
-      stack.push('}');
-    } else if (s[i] === '[') {
-      stack.push(']');
-    } else if (stack.pop() !== s[i]) {
+    const currentChar = s[i];
+
+    if (mapping[currentChar]) {
+      stack.push(mapping[currentChar]);
+      
+      continue;
+    }
+    
+    if (stack.pop() !== s[i]) {
       return false;
     }
   }
